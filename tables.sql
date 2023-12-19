@@ -69,10 +69,7 @@ CREATE TABLE doencas_cronicas (
 --historico_medico
 
 CREATE TABLE historico_medico (
-    id_historico NUMBER PRIMARY KEY,
-
-    CONSTRAINT fk_alergia FOREIGN KEY (id_alergia) REFERENCES alergias(id_alergia),
-    CONSTRAINT fk_doenca_cronica FOREIGN KEY (id_doenca_cronica) REFERENCES doencas_cronicas(id_doenca_cronica)
+    id_historico NUMBER PRIMARY KEY
 );
 
 -- paciente
