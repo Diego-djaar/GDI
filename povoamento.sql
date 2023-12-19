@@ -1,11 +1,10 @@
-CREATE TABLE Pessoa
-(
-    CPF CHAR(11) PRIMARY KEY,
-    /*CEP chave estrangeira de Endereço*/
-    Nome VARCHAR(128) NOT NULL,
-    Numero INT,
-    Data_de_nascimento DATE NOT NULL
-);
+-- insercao de dados
 
-INSERT INTO Pessoa
-VALUES ('11122233344','Albert Einstein' , 500, TO_DATE('1879-03-14','YYYY-MM-DD'));
+-- endereco
+
+INSERT INTO endereco (cep, rua, bairro, cidade) VALUES ('70450210', 'Rua Alberto Siqueira Campos', 'Bairro da caridade', 'Santos');
+INSERT INTO endereco (cep, rua, bairro, cidade) VALUES ('40410511', 'Rua Padre Samuel', 'Várzea', 'Caruaru');
+INSERT INTO endereco (cep, rua, bairro, cidade) VALUES ('10521401', 'Rua Alfredo Di Stéfano', 'Centro', 'São Paulo');
+INSERT INTO endereco (cep, rua, bairro, cidade) VALUES ('70457210', 'Rua Pedro Barros Magalhães', 'Jardim São Paulo', 'Recife');
+INSERT INTO endereco (cep, rua, bairro, cidade) VALUES ('51042210', 'Avenida Brasil', 'Itaquera', 'São Paulo');
+
