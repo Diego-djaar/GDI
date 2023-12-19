@@ -42,34 +42,38 @@ CREATE TABLE telefone(
     CONSTRAINT telefone_fk FOREIGN KEY (cpf_fk) REFERENCES pessoa(cpf)
 );
 
--- cirurgias
-
-CREATE TABLE cirurgias (
-    id_historico_medico NUMBER PRIMARY KEY,
-    descricao VARCHAR2(255) PRIMARY KEY,
-    CONSTRAINT fk_historico FOREIGN KEY (id_historico_medico) REFERENCES historico_medico(id_historico)
-);
-
--- alergias
-
-CREATE TABLE alergias (
-    id_historico_medico NUMBER PRIMARY KEY,
-    descricao VARCHAR2(255) PRIMARY KEY,
-    CONSTRAINT fk_historico FOREIGN KEY (id_historico_medico) REFERENCES historico_medico(id_historico)
-);
-
--- doencas_cronicas
-
-CREATE TABLE doencas_cronicas (
-    id_historico_medico NUMBER PRIMARY KEY,
-    descricao VARCHAR2(255) PRIMARY KEY,
-    CONSTRAINT fk_historico FOREIGN KEY (id_historico_medico) REFERENCES historico_medico(id_historico)
-);
 
 --historico_medico
 
 CREATE TABLE historico_medico (
     id_historico NUMBER PRIMARY KEY
+);
+
+-- cirurgias
+
+CREATE TABLE cirurgias (
+    id_historico_medico NUMBER NOT NULL,
+    descricao VARCHAR2(255) NOT NULL,
+    CONSTRAINT fk_historico0 FOREIGN KEY (id_historico_medico) REFERENCES historico_medico(id_historico),
+    PRIMARY KEY (id_historico_medico, descricao)
+);
+
+-- alergias
+
+CREATE TABLE alergias (
+    id_historico_medico NUMBER NOT NULL,
+    descricao VARCHAR2(255) NOT NULL,
+    CONSTRAINT fk_historico1 FOREIGN KEY (id_historico_medico) REFERENCES historico_medico(id_historico),
+    PRIMARY KEY (id_historico_medico, descricao)
+);
+
+-- doencas_cronicas
+
+CREATE TABLE doencas_cronicas (
+    id_historico_medico NUMBER NOT NULL,
+    descricao VARCHAR2(255) NOT NULL,
+    CONSTRAINT fk_historico2 FOREIGN KEY (id_historico_medico) REFERENCES historico_medico(id_historico),
+    PRIMARY KEY (id_historico_medico, descricao)
 );
 
 -- paciente
