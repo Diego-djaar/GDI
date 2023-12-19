@@ -15,8 +15,7 @@ CREATE TABLE endereco(
     rua VARCHAR2(50) NOT NULL,
     numero NUMBER NOT NULL,
     bairro VARCHAR2(50) NOT NULL,
-    cidade VARCHAR2(50) NOT NULL,
-    numero INT NOT NULL,
+    cidade VARCHAR2(50) NOT NULL
 
     CONSTRAINT endereco_pk PRIMARY KEY (cep)
 );
@@ -29,11 +28,9 @@ CREATE TABLE pessoa(
     cep VARCHAR2(8) NOT NULL,
     data_nascimento DATE NOT NULL,
     -- idade: nao precisa estar no banco de dados
-    telefone NUMBER,
 
     CONSTRAINT pessoa_pk PRIMARY KEY (cpf),
     CONSTRAINT pessoa_fk FOREIGN KEY (cep) REFERENCES endereco (cep)
-    CONSTRAINT pessoa_fk FOREIGN KEY (telefone, cpf) REFERENCES telefone (numero, cpf_fk)
 );
 
 -- telefone
