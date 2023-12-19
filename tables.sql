@@ -15,7 +15,7 @@ CREATE TABLE endereco(
     rua VARCHAR2(50) NOT NULL,
     numero NUMBER NOT NULL,
     bairro VARCHAR2(50) NOT NULL,
-    cidade VARCHAR2(50) NOT NULL
+    cidade VARCHAR2(50) NOT NULL,
 
     CONSTRAINT endereco_pk PRIMARY KEY (cep)
 );
