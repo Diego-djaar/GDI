@@ -85,7 +85,7 @@ CREATE TABLE paciente (
     peso NUMBER,
     altura NUMBER,
     tipo_sanguineo VARCHAR2(10),
-    id_historico_medico NUMBER,
+    id_historico_medico NUMBER NOT NULL,
 
     CONSTRAINT fk_historico_medico FOREIGN KEY (id_historico_medico) REFERENCES historico_medico(id_historico)
 );
@@ -99,4 +99,17 @@ CREATE TABLE funcionario (
     data_admissao DATE,
     
     CONSTRAINT fk_pessoa_funcionario FOREIGN KEY (cpf_funcionario) REFERENCES pessoa(cpf)
+);
+
+
+--acompanhante
+
+CREATE TABLE acompanhante (
+    cpf_acompanhante VARCHAR2(11) NOT NULL,
+    nome VARCHAR2(50) NOT NULL,
+    grau_de_parentesco NUMBER,
+    cpf_paciente VARCHAR2(11),
+
+    PRIMARY KEY (cpf_acompanhante, cpf_paciente),
+    CONSTRAINT fk_pessoa_acompanhada FOREIGN KEY (cpf_paciente) REFERENCES paciente(cpf_paciente)
 );
