@@ -220,3 +220,23 @@ CREATE TABLE especialidade_medico(
     PRIMARY KEY (cpf_medico, especialidade),
     CONSTRAINT fk_cpf_medico FOREIGN KEY (cpf_medico) REFERENCES Medico(cpf_medico)
 );
+
+-- Trabalha (24)
+CREATE TABLE trabalha(
+    cpf_funcionario VARCHAR2(11),
+    nome_setor VARCHAR2(30),
+
+    PRIMARY KEY (cpf_funcionario, nome_setor),
+    CONSTRAINT fk_nome_setor5 FOREIGN KEY (nome_setor) REFERENCES setor(nome),
+    CONSTRAINT fk_cpf_funcionario5 FOREIGN KEY (cpf_funcionario) REFERENCES funcionario(cpf_funcionario)
+);
+
+-- Medico_Responsavel (25)
+CREATE TABLE Medico_Responsavel(
+    cpf_medico VARCHAR2(11),
+    cpf_enfermeiro VARCHAR2(11),
+    cpf_paciente VARCHAR2(11),
+
+    PRIMARY KEY (cpf_medico, cpf_enfermeiro, cpf_paciente),
+    CONSTRAINT fk_responsavel FOREIGN KEY (cpf_paciente, cpf_enfermeiro) REFERENCES Enfermeiro_responsavel (cpf_paciente, cpf_enfermeiro)
+);
