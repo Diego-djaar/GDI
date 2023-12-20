@@ -238,5 +238,6 @@ CREATE TABLE Medico_Responsavel(
     cpf_paciente VARCHAR2(11),
 
     PRIMARY KEY (cpf_medico, cpf_enfermeiro, cpf_paciente),
-    CONSTRAINT fk_responsavel FOREIGN KEY (cpf_paciente, cpf_enfermeiro) REFERENCES Enfermeiro_responsavel (cpf_paciente, cpf_enfermeiro)
+    CONSTRAINT fk_responsavel FOREIGN KEY (cpf_paciente, cpf_enfermeiro) REFERENCES Enfermeiro_responsavel (cpf_paciente, cpf_enfermeiro),
+    CONSTRAINT fk_cpf_medico5 FOREIGN KEY (cpf_medico) REFERENCES Medico(cpf_medico)
 );
