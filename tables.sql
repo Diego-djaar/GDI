@@ -1,9 +1,3 @@
---checklist da AV3
--- CREATE TABLE - *DONE*
--- cláusula CONSTRAINT em CREATE TABLE - *DONE*
--- cláusula CHECK em CREATE TABLE
--- INSERT INTO - *DONE*
--- CREATE SEQUENCE - *DONE*
 -- criação de tabelas
 -- setor (1)
 CREATE TABLE setor(
@@ -20,7 +14,7 @@ CREATE TABLE sala(
 
 -- endereco (3)
 CREATE TABLE endereco(
-    cep VARCHAR2(8) NOT NULL,
+    cep VARCHAR2(8),
     rua VARCHAR2(50) NOT NULL,
     numero NUMBER NOT NULL,
     bairro VARCHAR2(50) NOT NULL,
@@ -30,7 +24,7 @@ CREATE TABLE endereco(
 
 -- pessoa (4)
 CREATE TABLE pessoa(
-    cpf VARCHAR2(11) NOT NULL,
+    cpf VARCHAR2(11),
     nome VARCHAR2(50) NOT NULL,
     cep VARCHAR2(8) NOT NULL,
     data_nascimento DATE NOT NULL,
@@ -53,24 +47,24 @@ CREATE TABLE historico_medico (
 
 -- cirurgias (7)
 CREATE TABLE cirurgias (
-    id_historico_medico NUMBER NOT NULL,
-    descricao VARCHAR2(255) NOT NULL,
+    id_historico_medico NUMBER,
+    descricao VARCHAR2(255),
     CONSTRAINT fk_historico0 FOREIGN KEY (id_historico_medico) REFERENCES historico_medico(id_historico),
     PRIMARY KEY (id_historico_medico, descricao)
 );
 
 -- alergias (8)
 CREATE TABLE alergias (
-    id_historico_medico NUMBER NOT NULL,
-    descricao VARCHAR2(255) NOT NULL,
+    id_historico_medico NUMBER,
+    descricao VARCHAR2(255),
     CONSTRAINT fk_historico1 FOREIGN KEY (id_historico_medico) REFERENCES historico_medico(id_historico),
     PRIMARY KEY (id_historico_medico, descricao)
 );
 
 -- doencas_cronicas (9)
 CREATE TABLE doencas_cronicas (
-    id_historico_medico NUMBER NOT NULL,
-    descricao VARCHAR2(255) NOT NULL,
+    id_historico_medico NUMBER,
+    descricao VARCHAR2(255),
     CONSTRAINT fk_historico2 FOREIGN KEY (id_historico_medico) REFERENCES historico_medico(id_historico),
     PRIMARY KEY (id_historico_medico, descricao)
 );
@@ -84,13 +78,19 @@ CREATE TABLE paciente (
     tipo_sanguineo VARCHAR2(10),
     id_historico_medico NUMBER UNIQUE,
     CONSTRAINT fk_historico_medico FOREIGN KEY (id_historico_medico) REFERENCES historico_medico(id_historico),
-    CONSTRAINT dep_cpf_paciente FOREIGN KEY (cpf_paciente) REFERENCES pessoa(cpf)
+    CONSTRAINT dep_cpf_paciente FOREIGN KEY (cpf_paciente) REFERENCES pessoa(cpf),
+    CONSTRAINT paciente_checkPeso CHECK (peso > 0),
+    CONSTRAINT paciente_checkAltura CHECK (altura > 0),
+    CONSTRAINT paciente_checkTipoSanguineo CHECK (tipo_sanguineo = 'A+' OR tipo_sanguineo = 'A-' OR
+                                            tipo_sanguineo = 'B+' OR tipo_sanguineo = 'B-' OR
+                                            tipo_sanguineo = 'AB+' OR tipo_sanguineo = 'AB-' OR
+                                            tipo_sanguineo = 'O+' OR tipo_sanguineo = 'O-')
 );
 
 --detalhesCLT (11)
 CREATE TABLE detalhesCLT(
     num_clt NUMBER PRIMARY KEY,
-    salario NUMBER NOT NULL,
+    salario NUMBER NOT NULL CHECK (salario >= 1320),
     data_de_admissao DATE NOT NULL
 );
 
@@ -105,7 +105,7 @@ CREATE TABLE funcionario (
 --Médico (13)
 CREATE TABLE Medico(
     cpf_medico VARCHAR2(11) PRIMARY KEY,
-    crm VARCHAR2(8),
+    crm VARCHAR2(8) NOT NULL,
     CONSTRAINT dep_cpf_medico FOREIGN KEY (cpf_medico) REFERENCES funcionario(cpf_funcionario) -- Como faz isso?
 );
 
@@ -120,7 +120,7 @@ CREATE TABLE Supervisao_medico(
 --enfermeiro (15)
 CREATE TABLE enfermeiro(
     cpf_enfermeiro VARCHAR2(11) PRIMARY KEY,
-    coren VARCHAR2(6),
+    coren VARCHAR2(6) NOT NULL,
     CONSTRAINT dep_cpf_enfermeiro FOREIGN KEY (cpf_enfermeiro) REFERENCES funcionario(cpf_funcionario) -- Como faz isso?
 );
 
@@ -134,7 +134,7 @@ CREATE TABLE Supervisao_enfermeiro(
 
 --acompanhante (17)
 CREATE TABLE acompanhante (
-    cpf_acompanhante VARCHAR2(11) NOT NULL,
+    cpf_acompanhante VARCHAR2(11),
     nome VARCHAR2(50) NOT NULL,
     grau_de_parentesco NUMBER,
     cpf_paciente VARCHAR2(11),
@@ -144,11 +144,11 @@ CREATE TABLE acompanhante (
 
 -- Consulta (18)
 CREATE TABLE Consulta(
-    data_e_hora timestamp NOT NULL,
+    data_e_hora timestamp,
     sala_setor VARCHAR2(30),
     sala_numero NUMBER,
-    medico_cpf VARCHAR2(11) NOT NULL,
-    paciente_cpf VARCHAR2(11) NOT NULL,
+    medico_cpf VARCHAR2(11), -- acho que aqui poderia ser o crm do medico ao inves do cpf
+    paciente_cpf VARCHAR2(11),
     PRIMARY KEY (
         data_e_hora,
         sala_setor,
@@ -167,7 +167,7 @@ CREATE TABLE Consulta(
 CREATE TABLE Receita(
     receita VARCHAR2(50),
     data_e_hora timestamp,
-    medico_cpf VARCHAR2(11),
+    medico_cpf VARCHAR2(11), -- acho que poderia ser o crm
     paciente_cpf VARCHAR2(11),
     PRIMARY KEY (
         receita, 
@@ -184,7 +184,7 @@ CREATE TABLE Receita(
 CREATE TABLE Diagnostico(
     diagnostico VARCHAR2(50),
     data_e_hora timestamp,
-    medico_cpf VARCHAR2(11),
+    medico_cpf VARCHAR2(11), -- poderia ser o crm
     paciente_cpf VARCHAR2(11),
     PRIMARY KEY (
         diagnostico,
@@ -200,7 +200,7 @@ CREATE TABLE Diagnostico(
 -- Responsável (21)
 CREATE TABLE Enfermeiro_responsavel(
     cpf_paciente VARCHAR2(11),
-    cpf_enfermeiro VARCHAR2(11),
+    cpf_enfermeiro VARCHAR2(11), -- podia ser o coren
     PRIMARY KEY (cpf_paciente, cpf_enfermeiro),
     CONSTRAINT fk_cpf_paciente FOREIGN KEY (cpf_paciente) REFERENCES paciente(cpf_paciente),
     CONSTRAINT fk_cpf_enfermeiro FOREIGN KEY (cpf_enfermeiro) REFERENCES enfermeiro(cpf_enfermeiro)
@@ -215,7 +215,7 @@ CREATE TABLE Atendente(
 
 -- Especialidade (23)
 CREATE TABLE especialidade_medico(
-    cpf_medico VARCHAR2(11),
+    cpf_medico VARCHAR2(11), -- CRM
     especialidade VARCHAR2(50),
     PRIMARY KEY (cpf_medico, especialidade),
     CONSTRAINT fk_cpf_medico FOREIGN KEY (cpf_medico) REFERENCES Medico(cpf_medico)
@@ -233,8 +233,8 @@ CREATE TABLE trabalha(
 
 -- Medico_Responsavel (25)
 CREATE TABLE Medico_Responsavel(
-    cpf_medico VARCHAR2(11),
-    cpf_enfermeiro VARCHAR2(11),
+    cpf_medico VARCHAR2(11), -- CRM
+    cpf_enfermeiro VARCHAR2(11), -- Coren
     cpf_paciente VARCHAR2(11),
 
     PRIMARY KEY (cpf_medico, cpf_enfermeiro, cpf_paciente),
