@@ -2,21 +2,26 @@
 CREATE SEQUENCE num INCREMENT BY 1 START WITH 1;
 
 -- Setor
-INSERT INTO setor(nome_setor) VALUES ('Cirurgia');
-INSERT INTO setor(nome_setor) VALUES ('Restauração');
-INSERT INTO setor(nome_setor) VALUES ('Vacinação');
-INSERT INTO setor(nome_setor) VALUES ('Radiologia');
+INSERT INTO setor(nome) VALUES ('Triagem');
+INSERT INTO setor(nome) VALUES ('Consultório');
+INSERT INTO setor(nome) VALUES ('Nebulização');
+INSERT INTO setor(nome) VALUES ('Medicação');
+INSERT INTO setor(nome) VALUES ('Internação');
+INSERT INTO setor(nome) VALUES ('Radiologia');
+INSERT INTO setor(nome) VALUES ('Enfermaria');
+INSERT INTO setor(nome) VALUES ('Recepção');
+INSERT INTO setor(nome) VALUES ('Gerência');
 
 -- Sala
-INSERT INTO sala(sala_numero, nome_setor) VALUES (1,'Triagem');
-INSERT INTO sala(sala_numero, nome_setor) VALUES (2,'Triagem');
-INSERT INTO sala(sala_numero, nome_setor) VALUES (3,'Consultório');
-INSERT INTO sala(sala_numero, nome_setor) VALUES (4,'Consultório');
-INSERT INTO sala(sala_numero, nome_setor) VALUES (5,'Consultório');
-INSERT INTO sala(sala_numero, nome_setor) VALUES (6,'Nebulização');
-INSERT INTO sala(sala_numero, nome_setor) VALUES (7,'Medicação');
-INSERT INTO sala(sala_numero, nome_setor) VALUES (8,'Internação');
-INSERT INTO sala(sala_numero, nome_setor) VALUES (9,'Radiologia');
+INSERT INTO sala(numero, nome_setor) VALUES (1,'Triagem');
+INSERT INTO sala(numero, nome_setor) VALUES (2,'Triagem');
+INSERT INTO sala(numero, nome_setor) VALUES (3,'Consultório');
+INSERT INTO sala(numero, nome_setor) VALUES (4,'Consultório');
+INSERT INTO sala(numero, nome_setor) VALUES (5,'Consultório');
+INSERT INTO sala(numero, nome_setor) VALUES (6,'Nebulização');
+INSERT INTO sala(numero, nome_setor) VALUES (7,'Medicação');
+INSERT INTO sala(numero, nome_setor) VALUES (8,'Internação');
+INSERT INTO sala(numero, nome_setor) VALUES (9,'Radiologia');
 
 -- Endereco
 INSERT INTO endereco (cep, rua, numero , bairro, cidade) VALUES ('70450210', 'Rua Alberto Siqueira Campos', 75 ,  'Bairro da caridade', 'Santos');
@@ -66,7 +71,7 @@ INSERT INTO telefone (numero, cpf_fk) VALUES (81992021014, '14523578212');
 
 INSERT INTO telefone (numero, cpf_fk) VALUES (41995451010, '15124233344');
 INSERT INTO telefone (numero, cpf_fk) VALUES (81984411410, '10523578212');
-INSERT INTO telefone (numero, cpf_fk) VALUES (81975051712, '74512233348');
+INSERT INTO telefone (numero, cpf_fk) VALUES (81975051722, '74512233348');
 INSERT INTO telefone (numero, cpf_fk) VALUES (81994044741, '45162233344');
 INSERT INTO telefone (numero, cpf_fk) VALUES (81992141014, '18442233341');
 
@@ -146,8 +151,8 @@ INSERT INTO Medico (cpf_medico, crm) VALUES ('74512233348', '77757553');
 INSERT INTO Medico (cpf_medico, crm) VALUES ('10523578212', '11026748');
 
 -- Supervisao_medico
-INSERT INTO Supervisao_medico(cpf_supervisionado, cpf_supervisor) VALUES ('45162233344','15124233344');
-INSERT INTO Supervisao_medico(cpf_supervisionado, cpf_supervisor) VALUES ('10523578212','74512233348');
+INSERT INTO Supervisao_medico(cpf_medico_supervisionado, cpf_medico_supervisor) VALUES ('45162233344','15124233344');
+INSERT INTO Supervisao_medico(cpf_medico_supervisionado, cpf_medico_supervisor) VALUES ('10523578212','74512233348');
 
 --enfermeiro 
 INSERT INTO enfermeiro(cpf_enfermeiro, coren) VALUES ('18442233341','777501');
@@ -156,8 +161,8 @@ INSERT INTO enfermeiro(cpf_enfermeiro, coren) VALUES ('14503578212','727701');
 INSERT INTO enfermeiro(cpf_enfermeiro, coren) VALUES ('74442233348','417507');
 
 -- Supervisao_enfermeiro
-INSERT INTO Supervisao_enfermeiro(cpf_supervisionado, cpf_supervisor) VALUES ('11772233344','18442233341');
-INSERT INTO Supervisao_enfermeiro(cpf_supervisionado, cpf_supervisor) VALUES ('74442233348','14503578212');
+INSERT INTO Supervisao_enfermeiro(cpf_enfermeiro_supervisionado, cpf_enfermeiro_supervisor) VALUES ('11772233344','18442233341');
+INSERT INTO Supervisao_enfermeiro(cpf_enfermeiro_supervisionado, cpf_enfermeiro_supervisor) VALUES ('74442233348','14503578212');
 
 -- Acompanhante
 INSERT INTO acompanhante(cpf_acompanhante, nome, grau_de_parentesco, cpf_paciente) VALUES ('09792355022','João Paulo', 1, '11122233344');
@@ -166,11 +171,11 @@ INSERT INTO acompanhante(cpf_acompanhante, nome, grau_de_parentesco, cpf_pacient
 INSERT INTO acompanhante(cpf_acompanhante, nome, grau_de_parentesco, cpf_paciente) VALUES ('95875467096','Carlos Jaime', 1, '74212233348');
 
 -- Consulta
-INSERT INTO Consulta(data_e_hora, setor, numero_sala, medico_cpf, paciente_cpf) VALUES (TO_TIMESTAMP('2023-04-13 15:30:32', 'YYYY-MM-DD HH24:MI:SS'), 'Consultório', 3, '15124233344', '11122233344');
-INSERT INTO Consulta(data_e_hora, setor, numero_sala, medico_cpf, paciente_cpf) VALUES (TO_TIMESTAMP('2023-11-23 17:45:19', 'YYYY-MM-DD HH24:MI:SS'), 'Consultório', 4, '45162233344', '18422233341');
-INSERT INTO Consulta(data_e_hora, setor, numero_sala, medico_cpf, paciente_cpf) VALUES (TO_TIMESTAMP('2023-04-13 16:18:25', 'YYYY-MM-DD HH24:MI:SS'), 'Radiologia', 9, '74512233348', '11122233344');
-INSERT INTO Consulta(data_e_hora, setor, numero_sala, medico_cpf, paciente_cpf) VALUES (TO_TIMESTAMP('2023-07-05 03:52:49', 'YYYY-MM-DD HH24:MI:SS'), 'Consultório', 5, '45162233344', '74212233348');
-INSERT INTO Consulta(data_e_hora, setor, numero_sala, medico_cpf, paciente_cpf) VALUES (TO_TIMESTAMP('2023-04-13 14:11:05', 'YYYY-MM-DD HH24:MI:SS'), 'Triagem', 1, '10523578212', '11122233344');
+INSERT INTO Consulta(data_e_hora, sala_setor, sala_numero, medico_cpf, paciente_cpf) VALUES (TO_TIMESTAMP('2023-04-13 15:30:32', 'YYYY-MM-DD HH24:MI:SS'), 'Consultório', 3, '15124233344', '11122233344');
+INSERT INTO Consulta(data_e_hora, sala_setor, sala_numero, medico_cpf, paciente_cpf) VALUES (TO_TIMESTAMP('2023-11-23 17:45:19', 'YYYY-MM-DD HH24:MI:SS'), 'Consultório', 4, '45162233344', '18422233341');
+INSERT INTO Consulta(data_e_hora, sala_setor, sala_numero, medico_cpf, paciente_cpf) VALUES (TO_TIMESTAMP('2023-04-13 16:18:25', 'YYYY-MM-DD HH24:MI:SS'), 'Radiologia', 9, '74512233348', '11122233344');
+INSERT INTO Consulta(data_e_hora, sala_setor, sala_numero, medico_cpf, paciente_cpf) VALUES (TO_TIMESTAMP('2023-07-05 03:52:49', 'YYYY-MM-DD HH24:MI:SS'), 'Consultório', 5, '45162233344', '74212233348');
+INSERT INTO Consulta(data_e_hora, sala_setor, sala_numero, medico_cpf, paciente_cpf) VALUES (TO_TIMESTAMP('2023-04-13 14:11:05', 'YYYY-MM-DD HH24:MI:SS'), 'Triagem', 1, '10523578212', '11122233344');
 
 -- Receita
 INSERT INTO Receita(receita, data_e_hora, medico_cpf, paciente_cpf) VALUES ('Dipirona', TO_TIMESTAMP('2023-04-14 15:11:05', 'YYYY-MM-DD HH24:MI:SS'), '74512233348', '11122233344');
@@ -204,13 +209,13 @@ INSERT INTO especialidade_medico(cpf_medico, especialidade) VALUES ('10523578212
 INSERT INTO especialidade_medico(cpf_medico, especialidade) VALUES ('15124233344', 'Gastroenterologia' );
 
 -- Trabalha
-INSERT INTO trabalha(cpf_funcionario, setor) VALUES ('15124233344', 'Consulta');
-INSERT INTO trabalha(cpf_funcionario, setor) VALUES ('18442233341', 'Enfermaria');
-INSERT INTO trabalha(cpf_funcionario, setor) VALUES ('45132233344' 'Recepção');
-INSERT INTO trabalha(cpf_funcionario, setor) VALUES ('17772233341', 'Gerência');
+INSERT INTO trabalha(cpf_funcionario, nome_setor) VALUES ('15124233344', 'Consultório');
+INSERT INTO trabalha(cpf_funcionario, nome_setor) VALUES ('18442233341', 'Enfermaria');
+INSERT INTO trabalha(cpf_funcionario, nome_setor) VALUES ('45132233344', 'Recepção');
+INSERT INTO trabalha(cpf_funcionario, nome_setor) VALUES ('17772233341', 'Gerência');
 
 -- Medico Responsavel
 INSERT INTO Medico_Responsavel(cpf_medico, cpf_enfermeiro, cpf_paciente) VALUES ('15124233344', '18442233341', '11122233344');
-INSERT INTO Medico_Responsavel(cpf_medico, cpf_enfermeiro, cpf_paciente) VALUES ('45162233344', '11772233344', '14523578212');
-INSERT INTO Medico_Responsavel(cpf_medico, cpf_enfermeiro, cpf_paciente) VALUES ('74512233348', '14503578212', '18422233341');
-INSERT INTO Medico_Responsavel(cpf_medico, cpf_enfermeiro, cpf_paciente) VALUES ('10523578212', '74442233348', '74212233348');
+INSERT INTO Medico_Responsavel(cpf_medico, cpf_enfermeiro, cpf_paciente) VALUES ('45162233344', '74442233348', '14523578212');
+INSERT INTO Medico_Responsavel(cpf_medico, cpf_enfermeiro, cpf_paciente) VALUES ('74512233348', '11772233344', '18422233341');
+INSERT INTO Medico_Responsavel(cpf_medico, cpf_enfermeiro, cpf_paciente) VALUES ('10523578212', '14503578212', '74212233348');
