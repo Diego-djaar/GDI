@@ -69,14 +69,30 @@ WHERE
             )
     );
 
+-- Retorna os funcionários com salários maiores que 5000 (operador relacional e IN em subconsulta)
+SELECT
+    *
+FROM
+    funcionario
+WHERE
+    num_clt IN (
+        SELECT
+            num_clt
+        FROM
+            detalhesCLT
+        WHERE
+            salario > 5000
+    );
+
 -- Retornar cirurgias de cada histórico médico (FULL OUTER JOIN)
 SELECT
     historico_medico.id_historico,
     cirurgias.descricao
 FROM
     historico_medico
-    FULL OUTER JOIN cirurgias ON historico_medico.id_historico = cirurgias.id_historico_medico
-    -- Retorna os médicos com salário maior que 9000 (SUBCONSULTA COM ANY)
+    FULL OUTER JOIN cirurgias ON historico_medico.id_historico = cirurgias.id_historico_medico;
+
+-- Retorna os médicos com salário maior que 9000 (SUBCONSULTA COM ANY)
 SELECT
     nome
 FROM
@@ -132,6 +148,12 @@ FROM
 WHERE
     tipo_sanguineo IS NULL;
 
+-- Seleciona o paciente com o menor peso (MIN)
+SELECT
+    MIN(peso) AS menor_peso
+FROM
+    paciente;
+
 -- Lista todos os médicos e enfermeiros (UNION)
 SELECT
     cpf_medico
@@ -146,4 +168,45 @@ FROM
 -- Demite um trabalhador (DELETE)
 DELETE FROM trabalha
 WHERE
-    cpf_funcionario = '15124233344'
+    cpf_funcionario = '15124233344';
+
+-- Ver os setores com 2 trabalhadores (HAVING, GROUP BY)
+SELECT
+    nome_setor,
+    COUNT(nome_setor)
+FROM
+    trabalha
+GROUP BY
+    nome_setor
+HAVING
+    COUNT(nome_setor) = 2;
+
+-- Ver quais pessoas são adultas (CREATE VIEW)
+CREATE VIEW
+    Adultos AS
+SELECT
+    nome
+FROM
+    pessoa
+WHERE
+    data_nascimento >= TO_DATE('2005-12-22', 'YYYY-MM-DD');
+
+SELECT
+    *
+FROM
+    Adultos;
+
+-- Seleciona os cpf's que iniciam com 74 em pessoa (LIKE)
+SELECT
+    *
+FROM
+    pessoa
+WHERE
+    cpf LIKE '74%';
+
+-- Adicionar campo data nas cirurgias (ALTER TABLE)
+ALTER TABLE cirurgias
+ADD data DATE;
+
+-- Adicionar index para o histórico médico (CREATE INDEX)
+CREATE INDEX idx_historico_medico ON paciente (id_historico_medico);
