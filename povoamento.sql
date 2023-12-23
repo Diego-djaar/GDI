@@ -107,7 +107,7 @@ INSERT INTO paciente (cpf_paciente, pressao_arterial, peso, altura, tipo_sanguin
 INSERT INTO detalhesCLT (num_clt, salario, data_de_admissao) VALUES (35325, 15000, TO_DATE('2005-01-15', 'YYYY-MM-DD'));
 INSERT INTO detalhesCLT (num_clt, salario, data_de_admissao) VALUES (325325325, 5700, TO_DATE('2020-10-10', 'YYYY-MM-DD'));
 INSERT INTO detalhesCLT (num_clt, salario, data_de_admissao) VALUES (523532, 10000, TO_DATE('2018-01-10', 'YYYY-MM-DD'));
-INSERT INTO detalhesCLT (num_clt, salario, data_de_admissao) VALUES (325325345, 3800, TO_DATE('2022-04-10', 'YYYY-MM-DD'));
+INSERT INTO detalhesCLT (num_clt, salario, data_de_admissao) VALUES (325325345, 3000, TO_DATE('2022-04-10', 'YYYY-MM-DD'));
 INSERT INTO detalhesCLT (num_clt, salario, data_de_admissao) VALUES (325235, 7400, TO_DATE('2019-01-17', 'YYYY-MM-DD'));
 
 INSERT INTO detalhesCLT (num_clt, salario, data_de_admissao) VALUES (97697, 11000, TO_DATE('2005-10-15', 'YYYY-MM-DD'));
@@ -150,6 +150,66 @@ INSERT INTO Atendente(cpf_atendente) VALUES ('17772233341');
 
 --setor
 
-INSERT INTO setor(nome_setor) VALUES ('cirurgia');
-INSERT INTO setor(nome_setor) VALUES ('restauração');
-INSERT INTO setor(nome_setor) VALUES ('vacinação');
+INSERT INTO setor(nome) VALUES ('cirurgia');
+INSERT INTO setor(nome) VALUES ('restauração');
+INSERT INTO setor(nome) VALUES ('vacinação');
+INSERT INTO setor(nome) VALUES ('RH');
+INSERT INTO setor(nome) VALUES ('recepção');
+
+-- sala
+INSERT INTO sala (numero, nome_setor) VALUES (101, 'cirurgia');
+INSERT INTO sala (numero, nome_setor) VALUES (102, 'restauração');
+INSERT INTO sala (numero, nome_setor) VALUES (103, 'vacinação');
+INSERT INTO sala (numero, nome_setor) VALUES (104, 'RH');
+INSERT INTO sala (numero, nome_setor) VALUES (105, 'recepção');
+INSERT INTO sala (numero, nome_setor) VALUES (001, 'recepção');
+
+-- supervisão medico
+
+INSERT INTO Supervisao_medico (cpf_medico_supervisionado, cpf_medico_supervisor) VALUES ('74512233348', '15124233344');
+INSERT INTO Supervisao_medico (cpf_medico_supervisionado, cpf_medico_supervisor) VALUES ('10523578212', '45162233344');
+
+-- Supervisao_enfermeiro
+
+INSERT INTO Supervisao_enfermeiro (cpf_enfermeiro_supervisionado, cpf_enfermeiro_supervisor) VALUES ('18442233341', '11772233344');
+INSERT INTO Supervisao_enfermeiro (cpf_enfermeiro_supervisionado, cpf_enfermeiro_supervisor) VALUES ('14503578212', '74442233348');
+
+-- acompanhante
+
+INSERT INTO acompanhante (cpf_acompanhante, nome, grau_de_parentesco, cpf_paciente) VALUES ('12345678901', 'Maria Silva', 1, '11122233344');
+INSERT INTO acompanhante (cpf_acompanhante, nome, grau_de_parentesco, cpf_paciente) VALUES ('23456789012', 'João Santos', 2, '14523578212');
+
+-- consulta
+
+INSERT INTO Consulta (data_e_hora, sala_setor, sala_numero, medico_cpf, paciente_cpf) VALUES (TO_TIMESTAMP('2023-12-21 10:00:00', 'YYYY-MM-DD HH24:MI:SS'), 'cirurgia', 101, '15124233344', '11122233344');
+INSERT INTO Consulta (data_e_hora, sala_setor, sala_numero, medico_cpf, paciente_cpf) VALUES (TO_TIMESTAMP('2023-12-22 11:00:00', 'YYYY-MM-DD HH24:MI:SS'), 'restauração', 102, '74512233348', '45122233344');
+
+-- trabalha
+
+INSERT INTO trabalha (cpf_funcionario, nome_setor) VALUES ('15124233344', 'cirurgia');
+INSERT INTO trabalha (cpf_funcionario, nome_setor) VALUES ('10523578212', 'restauração');
+INSERT INTO trabalha (cpf_funcionario, nome_setor) VALUES ('74512233348', 'cirurgia');
+INSERT INTO trabalha (cpf_funcionario, nome_setor) VALUES ('14503578212', 'vacinação');
+INSERT INTO trabalha (cpf_funcionario, nome_setor) VALUES ('74442233348', 'vacinação');
+INSERT INTO trabalha (cpf_funcionario, nome_setor) VALUES ('45162233344', 'restauração');
+INSERT INTO trabalha (cpf_funcionario, nome_setor) VALUES ('45132233344', 'RH');
+INSERT INTO trabalha (cpf_funcionario, nome_setor) VALUES ('17772233341', 'recepção');
+INSERT INTO trabalha (cpf_funcionario, nome_setor) VALUES ('18442233341', 'vacinação');
+INSERT INTO trabalha (cpf_funcionario, nome_setor) VALUES ('11772233344', 'vacinação');
+
+
+--especialidade medico
+
+INSERT INTO especialidade_medico (cpf_medico, especialidade) VALUES ('15124233344', 'Cardiologia');
+INSERT INTO especialidade_medico (cpf_medico, especialidade) VALUES ('45162233344', 'Pediatria');
+INSERT INTO especialidade_medico (cpf_medico, especialidade) VALUES ('45162233344', 'Cardiologia');
+
+--receita
+INSERT INTO Receita (receita, data_e_hora, medico_cpf, paciente_cpf) VALUES ('Receita-1', TO_TIMESTAMP('2023-12-21 10:15:00', 'YYYY-MM-DD HH24:MI:SS'), '15124233344', '11122233344');
+INSERT INTO Receita (receita, data_e_hora, medico_cpf, paciente_cpf) VALUES ('Receita-2', TO_TIMESTAMP('2023-12-22 11:15:00', 'YYYY-MM-DD HH24:MI:SS'), '74512233348', '45122233344');
+
+--diagnostico
+
+INSERT INTO Diagnostico (diagnostico, data_e_hora, medico_cpf, paciente_cpf) VALUES ('gripe', TO_TIMESTAMP('2023-12-21 10:30:00', 'YYYY-MM-DD HH24:MI:SS'), '15124233344', '11122233344');
+INSERT INTO Diagnostico (diagnostico, data_e_hora, medico_cpf, paciente_cpf) VALUES ('pneumonia', TO_TIMESTAMP('2023-12-22 11:30:00', 'YYYY-MM-DD HH24:MI:SS'), '74512233348', '45122233344');
+
